@@ -39,9 +39,11 @@ public class MainActivity extends FlutterActivity {
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 String vResFinger = "";
                 switch (call.method) {
-                    case "disposeEMV":
-
-                        Log.i("onMethodCall", "disposeEMV: 55");
+                    case "CaptureNameDevice":
+                        Log.i("onMethodCall", "CaptureNameDevice: 43");
+                        String vNameDevice= fingerChannelDP.initFingerDP ();
+                        result.success(vNameDevice);
+                        Log.i("onMethodCall", "vNameDevice: 55");
                         break;
                     case "searchEMV":
                         Log.i("onMethodCall", "disposeEMV: 55");

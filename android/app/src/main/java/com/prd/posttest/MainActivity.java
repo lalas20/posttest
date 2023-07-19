@@ -25,7 +25,7 @@ public class MainActivity extends FlutterActivity {
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
         BinaryMessenger messenger = flutterEngine.getDartExecutor().getBinaryMessenger();
-        String methodChannelName = "com.prodem/mc";
+        String methodChannelName = "com.prodem/mcDP";
         String eventChannelFingerName = "com.prodem/emcF";
 
 
@@ -35,12 +35,15 @@ public class MainActivity extends FlutterActivity {
 
 
         methodChannel.setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+             //Log.i("setMethodCallHandler", "MethodCallHandler: 43");
             @Override
             public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
                 String vResFinger = "";
+             Log.i("setMethodCallHandler", "MethodCallHandler: 43"+ call.method);
+
                 switch (call.method) {
-                    case "CaptureNameDevice":
-                        Log.i("onMethodCall", "CaptureNameDevice: 43");
+                    case "captureNameDevice":
+                        Log.i("onMethodCall", "captureNameDevice: 43");
                         String vNameDevice= fingerChannelDP.initFingerDP ();
                         result.success(vNameDevice);
                         Log.i("onMethodCall", "vNameDevice: 55");
@@ -51,13 +54,14 @@ public class MainActivity extends FlutterActivity {
                         break;
 
                     default:
+                        Log.i("CaptureNameDevice", "notImplemented: 54");
                         result.notImplemented();
 
                 }
             }
         });
 
-        new EventChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), eventChannelFingerName).setStreamHandler(fingerChannelDP);
+       // new EventChannel(flutterEngine.getDartExecutor().getBinaryMessenger(), eventChannelFingerName).setStreamHandler(fingerChannelDP);
 
     }
 

@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="dpuareu">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/android/libs/dpuareu.jar!/" />
+      <root url="jar://$PROJECT_DIR$/android/app/libs/dpuareu.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

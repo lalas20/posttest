@@ -44,7 +44,7 @@ public class MainActivity extends FlutterActivity {
                 switch (call.method) {
                     case "captureNameDevice":
                         Log.i("onMethodCall", "captureNameDevice: 43");
-                        String vNameDevice= fingerChannelDP.initFingerDP ();
+                        String vNameDevice= fingerChannelDP.initFingerDP (getApplicationContext());
                         result.success(vNameDevice);
                         Log.i("onMethodCall", "vNameDevice: 55");
                         break;

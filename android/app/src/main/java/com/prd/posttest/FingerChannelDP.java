@@ -34,6 +34,11 @@ public class FingerChannelDP {
     private String m_deviceName = "";
     private Reader.Capabilities cap=null;
     private Reader.Description des=null;
+    	private Reader.CaptureResult cap_result = null;
+
+
+    	private int m_DPI = 0;
+
 private Reader.Status status=null;
 
     private void displayReaderNotFound()
@@ -86,7 +91,6 @@ private Reader.Status status=null;
     public String   initFingerDP(Context applContext){
         Log.i(TAG, "initFingerDP: 31 ini" );
         m_deviceName="sin data";
-
         try {
 
             readers = UareUGlobal.GetReaderCollection(applContext);
@@ -155,22 +159,6 @@ private Reader.Status status=null;
             status= m_reader.GetStatus();
             Log.i("status","NAME READER:"+status.status.name());
             Log.i("status","NAME READER:"+status.toString());
-/*
-
-            //m_reader=Reader();
-
-            Log.i(TAG, "initFingerDP: 41" );
-            m_reader.Open(Priority.COOPERATIVE);
-            Log.i(TAG, "initFingerDP: 43" );
-            cap=m_reader.GetCapabilities();
-            Log.i(TAG, "initFingerDP: 45" );
-            des=m_reader.GetDescription();
-            Log.i(TAG, "initFingerDP: 47" );
-            m_deviceName=des.name+des.serial_number;
-            Log.i(TAG, "m_devicename: "+m_deviceName );
-            //m_deviceName = "llegando init finger"; // getIntent().getExtras().getString("device_name");
-            Log.i(TAG, "initFingerDP: " + m_deviceName);
-*/
             m_reader.Close();
         }
         catch (Exception e)
@@ -180,4 +168,51 @@ private Reader.Status status=null;
         }
         return  m_deviceName;
     }
+
+    public String captureFinger(Context applContext)
+    {
+        String vresul='captureFinger';
+       try 
+		{
+			//Context applContext = getApplicationContext();
+			//m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+			//m_reader.Open(Priority.EXCLUSIVE);
+                       Log.i("captureFinger", "antes de get FirstDPI: 178" );
+
+			m_DPI = Globals.GetFirstDPI(m_reader);
+Log.i("captureFinger", "antes de Capture: 181" );
+            							cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+
+
+vresul='captureFinger';
+		} catch (Exception e) {
+			Log.w("captureFinger", "captureFinger");
+			m_deviceName = "";
+            vresul='error captureFinger';
+			onBackPressed();
+			
+		}
+return vresul;
+
+    }
+    public void onBackPressed()
+	{
+		try 
+		{
+			m_reset = true;
+			try {m_reader.CancelCapture(); } catch (Exception e) {}
+			m_reader.Close();
+		}
+		catch (Exception e)
+		{
+			Log.w("UareUSampleJava", "error during reader shutdown");
+		}
+	}
+
+
+    public disposeDP(){
+
+       try {m_reader.CancelCapture(); } catch (Exception e) {}
+			m_reader.Close();
+                }
 }

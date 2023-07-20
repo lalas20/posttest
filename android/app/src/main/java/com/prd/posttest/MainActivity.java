@@ -48,10 +48,13 @@ public class MainActivity extends FlutterActivity {
                         result.success(vNameDevice);
                         Log.i("onMethodCall", "vNameDevice: 55");
                         break;
-                    case "searchEMV":
-                        Log.i("onMethodCall", "disposeEMV: 55");
-
+                    case "captureFinger":
+                        Log.i("captureFinger", "inicio");
+                        String vFingerTxt= fingerChannelDP.captureFinger (getApplicationContext());
+                        result.success(vFingerTxt);
+                        Log.i("captureFinger", "fin");
                         break;
+
 
                     default:
                         Log.i("CaptureNameDevice", "notImplemented: 54");

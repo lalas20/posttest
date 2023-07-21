@@ -39,6 +39,11 @@ public class FingerChannelDP {
     private String m_deviceName = "";
     private Reader.Capabilities cap=null;
     private Reader.Description des=null;
+    private Engine m_engine = null;
+    private Fmd m_fmd = null;
+    private Reader.CaptureResult cap_result = null;
+    private Bitmap m_bitmap = null;
+    private int m_DPI = 0;
 private Reader.Status status=null;
 
     private void displayReaderNotFound()
@@ -88,6 +93,87 @@ private Reader.Status status=null;
             }
         }
     };
+    public String captureFinger (Context applContext){
+        Log.i("captureFinger", "ini:" );
+        String vResul="";
+        try {
+
+           // Context applContext = getApplicationContext();
+            m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+            Log.i("captureFinger", "getReader:" );
+
+            m_reader.Open(Priority.EXCLUSIVE);
+            Log.i("captureFinger", "Open:" );
+
+            m_DPI = Globals.GetFirstDPI(m_reader);
+            Log.i("captureFinger", "GetFirstDPI:" );
+
+            m_engine = UareUGlobal.GetEngine();
+            Log.i("captureFinger", "GetEngine:" );
+
+            try
+            {
+               // cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+                
+                Log.i("captureFinger", "Capture:" );
+
+            }
+            catch (Exception e)
+            {
+                  Log.w("captureFinger", "Exception: " + e.toString());
+                    m_deviceName = "";
+                    onBackPressed();
+
+            }
+            // an error occurred
+            if (cap_result == null || cap_result.image == null) {onBackPressed(); return vResul="cap_resul null";};
+
+            try
+            {
+                vResul="";
+
+                // save bitmap image locally
+                m_bitmap = Globals.GetBitmapFromRaw(cap_result.image.getViews()[0].getImageData(), cap_result.image.getViews()[0].getWidth(), cap_result.image.getViews()[0].getHeight());
+                Log.i("captureFinger", "GetBitmapFromRaw:" );
+
+                if (m_fmd == null)
+                {
+                    m_fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004);
+                                    Log.i("captureFinger", "CreateFmd:" );
+                                    vResul="se creo el obj m_fmd";
+
+                }
+            }
+            catch (Exception e)
+            {
+                vResul = e.toString();
+                Log.w("UareUSampleJava", "Engine error: " + e.toString());
+            }
+
+        }
+        catch (Exception e)
+        {
+            Log.i(TAG, "excepcion: "+e.getMessage() );
+            vResul="error reader";
+            onBackPressed();
+        }
+        onBackPressed();
+        return  vResul;
+    }
+
+    public void onBackPressed()
+    {
+        try
+        {
+            try { m_reader.CancelCapture(); } catch (Exception e) {}
+            m_reader.Close();
+        }
+        catch (Exception e)
+        {
+            Log.w("UareUSampleJava", "error during reader shutdown");
+        }
+    }
+
     public String   initFingerDP(Context applContext){
         Log.i(TAG, "initFingerDP: 31 ini" );
         m_deviceName="sin data";
@@ -105,17 +191,16 @@ private Reader.Status status=null;
             Log.i(TAG,"NAME READER:"+readers.get(0).GetDescription().name);
 
             Log.i(TAG,"NAME READER:"+readers.get(0).GetDescription().id.product_name);
-           m_reader= readers.get(0);
-           //m_deviceName=readers.get(0).GetDescription().id.product_name;
+            m_reader= readers.get(0);
             m_deviceName=readers.get(0).GetDescription().name;
-           //add permisos usb
+            //add permisos usb
             if((m_deviceName != null) && !m_deviceName.isEmpty())
             {
                 //m_selectedDevice.setText("Device: " + m_deviceName);
 
                 try {
-                   // Context applContext = getApplicationContext();
-                   // m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+                    // Context applContext = getApplicationContext();
+                    // m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
 
                     {
                         Log.i("USB","VERIFICANDO USB:");
@@ -154,7 +239,7 @@ private Reader.Status status=null;
 
 
 
-           Log.i("status","antes del status:"+m_deviceName);
+            Log.i("status","antes del status:"+m_deviceName);
             m_reader.Open(Priority.COOPERATIVE);
             status= m_reader.GetStatus();
             Log.i("status","NAME READER:"+status.status.name());

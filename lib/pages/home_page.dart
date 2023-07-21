@@ -22,7 +22,13 @@ class _HomePageState extends State<HomePage> {
       nameDeviceDP = res as String;
     });
   }
-
+  void _capturaFinger() async {
+    final resul = PlaformChannel();
+    final res = await resul.fingerChannelDP.capturaFinger();
+    setState(() {
+      fingertxt = res as String;
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

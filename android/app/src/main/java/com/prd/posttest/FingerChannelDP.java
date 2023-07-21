@@ -114,7 +114,7 @@ private Reader.Status status=null;
 
             try
             {
-               cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+               cap_result = m_reader.Capture(Fid.Format.ISO_19794_4_2005, Globals.DefaultImageProcessing, m_DPI, -1);
 
                 Log.i("captureFinger", "Capture:" );
 
@@ -139,13 +139,22 @@ private Reader.Status status=null;
 
                 if (m_fmd == null)
                 {
-                    m_fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004);
+                    m_fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ISO_19794_2_2005);
                                     Log.i("captureFinger", "CreateFmd:" );
                                     vResul="se creo el obj m_fmd";
 
-                   //Log.i("captureFinger", "getViews:" +Globals.ConverBase64Obj(m_fmd.getViews()) );
-                    Log.i("captureFinger", "getFormat:" +Globals.ConverBase64Obj(m_fmd.getFormat()) );
+
+                    Log.i("captureFinger", "ConverBase64byte getData:" +Globals.ConverBase64byte(m_fmd.getData()) );
+
+
+                    Log.i("captureFinger", ":" );
+                    Log.i("captureFinger", ":" );
+                    Log.i("captureFinger", ":" );
+
                     Log.i("captureFinger", "getData:" +Globals.ConverBase64Obj(m_fmd.getData()) );
+
+                    Log.i("captureFinger", "getFormat:" +m_fmd.getFormat() );
+                    Log.i("captureFinger", "getWidth:" +m_fmd.getWidth() );
 
                     Log.i("captureFinger", "fin de conversion:"  );
 

@@ -5,11 +5,18 @@
  * copyright (c) 2013 DigitalPersona Inc.
  */
 
+<<<<<<< HEAD
 package com.prd.posttest;
 
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Base64;
+=======
+package com.digitalpersona.uareu.UareUSampleJava;
+
+import java.nio.ByteBuffer;
+import java.util.ArrayList;
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 
 import android.graphics.Bitmap;
 
@@ -20,9 +27,12 @@ import com.digitalpersona.uareu.UareUGlobal;
 import com.digitalpersona.uareu.Reader.Capabilities;
 
 import android.content.Context;
+<<<<<<< HEAD
 import android.os.Build;
 
 import androidx.annotation.RequiresApi;
+=======
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 
 public class Globals 
 {
@@ -147,6 +157,7 @@ public class Globals
 		Capabilities caps = reader.GetCapabilities();
 		return caps.resolutions[0];
 	}
+<<<<<<< HEAD
 
 	//agregandometodo de conversion a hex
 
@@ -158,4 +169,6 @@ public class Globals
 return vcode;
 
 	}
+=======
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 }

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #Thu Jul 20 17:10:05 BOT 2023
+=======
+#Thu Jul 20 11:38:32 BOT 2023
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 base.0=D\:\\proyFlutter\\gitrepository\\posttest\\build\\app\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 base.1=D\:\\proyFlutter\\gitrepository\\posttest\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
 base.2=D\:\\proyFlutter\\gitrepository\\posttest\\build\\app\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex

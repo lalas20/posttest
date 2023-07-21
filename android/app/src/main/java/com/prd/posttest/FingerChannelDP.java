@@ -39,10 +39,13 @@ public class FingerChannelDP {
     private String m_deviceName = "";
     private Reader.Capabilities cap=null;
     private Reader.Description des=null;
+<<<<<<< HEAD
     private Engine m_engine = null;
     private Fmd m_fmd = null;
 
     private Bitmap m_bitmap = null;
+=======
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
     	private Reader.CaptureResult cap_result = null;
 
 
@@ -180,6 +183,7 @@ private Reader.Status status=null;
 
     public String captureFinger(Context applContext)
     {
+<<<<<<< HEAD
         String vresul="captureFinger";
        try 
 		{
@@ -243,6 +247,29 @@ private Reader.Status status=null;
 			
 		}
         onBackPressed();
+=======
+        String vresul='captureFinger';
+       try 
+		{
+			//Context applContext = getApplicationContext();
+			//m_reader = Globals.getInstance().getReader(m_deviceName, applContext);
+			//m_reader.Open(Priority.EXCLUSIVE);
+                       Log.i("captureFinger", "antes de get FirstDPI: 178" );
+
+			m_DPI = Globals.GetFirstDPI(m_reader);
+Log.i("captureFinger", "antes de Capture: 181" );
+            							cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+
+
+vresul='captureFinger';
+		} catch (Exception e) {
+			Log.w("captureFinger", "captureFinger");
+			m_deviceName = "";
+            vresul='error captureFinger';
+			onBackPressed();
+			
+		}
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 return vresul;
 
     }
@@ -250,7 +277,11 @@ return vresul;
 	{
 		try 
 		{
+<<<<<<< HEAD
 
+=======
+			m_reset = true;
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
 			try {m_reader.CancelCapture(); } catch (Exception e) {}
 			m_reader.Close();
 		}
@@ -261,10 +292,17 @@ return vresul;
 	}
 
 
+<<<<<<< HEAD
     public void disposeDP(){
 
        try {m_reader.CancelCapture(); } catch (Exception e) {}
         try {m_reader.Close(); } catch (Exception e) {}
 
+=======
+    public disposeDP(){
+
+       try {m_reader.CancelCapture(); } catch (Exception e) {}
+			m_reader.Close();
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
                 }
 }

@@ -53,6 +53,10 @@ public class MainActivity extends FlutterActivity {
                         String vFingerTxt= fingerChannelDP.captureFinger (getApplicationContext());
                         result.success(vFingerTxt);
                         Log.i("captureFinger", "fin");
+<<<<<<< HEAD
+=======
+                        break;
+>>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
                         break;
 
 

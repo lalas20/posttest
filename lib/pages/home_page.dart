@@ -23,18 +23,6 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  _capturaFinger() async {
-    final resul = PlaformChannel();
-    final res = await resul.fingerChannelDP.capturaFinger();
-    setState(() {
-      fingertxt = res as String;
-<<<<<<< HEAD
-      print("capturefinger fin $fingertxt");
-=======
->>>>>>> f60f2149bfc52ce3b0d86b79c23d07b743818943
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

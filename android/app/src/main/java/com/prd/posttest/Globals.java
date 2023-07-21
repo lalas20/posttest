@@ -7,8 +7,13 @@
 
 package com.prd.posttest;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+
 
 import android.graphics.Bitmap;
 
@@ -17,8 +22,10 @@ import com.digitalpersona.uareu.ReaderCollection;
 import com.digitalpersona.uareu.UareUException;
 import com.digitalpersona.uareu.UareUGlobal;
 import com.digitalpersona.uareu.Reader.Capabilities;
+import com.google.gson.Gson;
 
 import android.content.Context;
+import android.util.Base64;
 
 public class Globals
 {
@@ -142,5 +149,30 @@ public class Globals
     {
         Capabilities caps = reader.GetCapabilities();
         return caps.resolutions[0];
+    }
+    public static final String ConverBase64byte( byte[] src)
+    {
+        String resul= Base64.encodeToString(src,Base64.DEFAULT);
+        return resul;
+    }
+    public static final String ConverBase64Obj( Object obj) {
+        String vresul="";
+try {
+    Gson gson = new Gson();
+    vresul = gson.toJson(obj);
+    vresul = Base64.encodeToString(vresul.getBytes(StandardCharsets.UTF_8), Base64.DEFAULT);
+        /*Base64.encodeToString(baos.toByteArray(),Base64.DEFAULT);
+        ByteArrayOutputStream baos=new ByteArrayOutputStream();
+        ObjectOutputStream oos=new ObjectOutputStream(baos);
+        oos.writeObject(obj);
+        oos.close();
+        String resul= Base64.encodeToString(baos.toByteArray(),Base64.DEFAULT);*/
+
+}
+catch (Exception e)
+{
+    vresul="excepcion";
+}
+return vresul;
     }
 }

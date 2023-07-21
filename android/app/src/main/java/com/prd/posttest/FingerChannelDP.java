@@ -13,6 +13,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.usb.UsbDevice;
 import android.hardware.usb.UsbManager;
+import android.util.Base64;
 import android.util.Log;
 
 import com.digitalpersona.uareu.Quality;
@@ -113,8 +114,8 @@ private Reader.Status status=null;
 
             try
             {
-               // cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
-                
+               cap_result = m_reader.Capture(Fid.Format.ANSI_381_2004, Globals.DefaultImageProcessing, m_DPI, -1);
+
                 Log.i("captureFinger", "Capture:" );
 
             }
@@ -141,6 +142,12 @@ private Reader.Status status=null;
                     m_fmd = m_engine.CreateFmd(cap_result.image, Fmd.Format.ANSI_378_2004);
                                     Log.i("captureFinger", "CreateFmd:" );
                                     vResul="se creo el obj m_fmd";
+
+                   //Log.i("captureFinger", "getViews:" +Globals.ConverBase64Obj(m_fmd.getViews()) );
+                    Log.i("captureFinger", "getFormat:" +Globals.ConverBase64Obj(m_fmd.getFormat()) );
+                    Log.i("captureFinger", "getData:" +Globals.ConverBase64Obj(m_fmd.getData()) );
+
+                    Log.i("captureFinger", "fin de conversion:"  );
 
                 }
             }

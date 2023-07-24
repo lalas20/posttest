@@ -30,6 +30,9 @@ import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbException;
 import com.digitalpersona.uareu.dpfpddusbhost.DPFPDDUsbHost;
 import com.digitalpersona.uareu.jni.DpfjQuality;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class FingerChannelDP {
     private static final String TAG = "FingerChannelDP";
@@ -45,6 +48,8 @@ public class FingerChannelDP {
     private Reader.CaptureResult cap_result = null;
     private Bitmap m_bitmap = null;
     private int m_DPI = 0;
+
+    private String files="/sdcard/";
 private Reader.Status status=null;
 
     private void displayReaderNotFound()
@@ -114,7 +119,8 @@ private Reader.Status status=null;
 
             try
             {
-               cap_result = m_reader.Capture(Fid.Format.ISO_19794_4_2005, Globals.DefaultImageProcessing, m_DPI, -1);
+               //cap_result = m_reader.Capture(Fid.Format.ISO_19794_4_2005, Globals.DefaultImageProcessing, m_DPI, -1);
+                cap_result = m_reader.Capture(Fid.Format.ISO_19794_4_2005, Globals.DefaultImageProcessing, m_DPI, -1);
 
                 Log.i("captureFinger", "Capture:" );
 
@@ -146,15 +152,28 @@ private Reader.Status status=null;
 
                     Log.i("captureFinger", "ConverBase64byte getData:" +Globals.ConverBase64byte(m_fmd.getData()) );
 
+                  Globals.save2File("/sdcard/raw.data",m_fmd.getData());
+
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");
+                    String name = sdf.format(new Date()) + "_finger.bmp";
+                   Globals.generateBmp_NEW(m_bitmap,name,applContext);
+                    Log.i("generateBmp", " se genero la imagen:" +name );
 
                     Log.i("captureFinger", ":" );
                     Log.i("captureFinger", ":" );
                     Log.i("captureFinger", ":" );
 
-                    Log.i("captureFinger", "getData:" +Globals.ConverBase64Obj(m_fmd.getData()) );
+                    //Log.i("captureFinger", "getData:" +Globals.ConverBase64Obj(m_fmd.getData()) );
 
                     Log.i("captureFinger", "getFormat:" +m_fmd.getFormat() );
                     Log.i("captureFinger", "getWidth:" +m_fmd.getWidth() );
+                    Log.i("captureFinger", "getHeight:" +m_fmd.getHeight() );
+                    Log.i("captureFinger", "getResolution:" +m_fmd.getResolution() );
+                    Log.i("captureFinger", "m_DPI:" +m_DPI );
+
+
+                    //Log.i("captureFinger", "cap_result.image.getData():" +Globals.ConverBase64byte(cap_result.image.getData()));
+
 
                     Log.i("captureFinger", "fin de conversion:"  );
 

@@ -8,8 +8,13 @@
 package com.prd.posttest;
 
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
@@ -25,7 +30,10 @@ import com.digitalpersona.uareu.Reader.Capabilities;
 import com.google.gson.Gson;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
+import android.os.Environment;
 import android.util.Base64;
+import android.util.Log;
 
 public class Globals
 {
@@ -174,5 +182,68 @@ catch (Exception e)
     vresul="excepcion";
 }
 return vresul;
+    }
+
+ public  static void save2File(String path, byte[] data) {
+        FileOutputStream fos = null;
+        try {
+            File f = new File(path);
+            if (!f.exists()) {
+                if (!f.getParentFile().exists()) {
+                    f.getParentFile().mkdirs();
+                }
+                f.createNewFile();
+            }
+            fos = new FileOutputStream(f);
+            fos.write(data);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+    }
+    public static void generateBmp_NEW(Bitmap bmp, String path, Context context) {
+            try {
+                File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS);
+                File file = new File(dir,path);
+                Log.i("file", "getPath: " + file.getPath());
+                //OutputStreamWriter archivo = null;
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                bmp.compress(Bitmap.CompressFormat.PNG,100,fileOutputStream);
+                Log.i("fileOutputStream", "fileOutputStream: " );
+                fileOutputStream.flush();
+                fileOutputStream.close();
+
+
+                //archivo = new OutputStreamWriter(fileOutputStream);
+                Log.i("OutputStreamWriter", "archivo: " );
+
+
+            }catch (IOException io){
+                io.printStackTrace();
+            }
+    }
+    public static Bitmap generateBmp(byte[] buffer, String path) {
+        Bitmap var3 = null;
+
+        try {
+            BitmapUtils var4 = new BitmapUtils();
+            var4.getBmpWith8(buffer, path);
+            FileInputStream var5 = new FileInputStream(path);
+            var3 = BitmapFactory.decodeStream(var5);
+        } catch (Exception var6) {
+            var6.printStackTrace();
+        }
+
+        return var3;
     }
 }
